@@ -1,4 +1,14 @@
+variable "project" {
+  description = "The GCP project ID"
+  type        = string
+}
+
 variable "region" {
-  description = "The AWS region to deploy to"
-  default     = "ap-northeast-1"  # Thay đổi theo vùng của bạn
+  description = "The GCP region"
+  type        = string
+}
+
+variable "credentials_file" {
+  description = "Path to the service account credentials file"
+  type        = string
 }

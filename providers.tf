@@ -1,5 +1,5 @@
-provider "aws" {
-  region = "ap-northeast-1"  # Thay đổi theo vùng của bạn
+provider "google" {
+  project     = var.project
+  region      = var.region
+  credentials = file(var.credentials_file)
 }
-
-provider "random" {}

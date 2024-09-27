@@ -1,27 +1,26 @@
-resource "aws_s3_bucket" "l1_bucket" {
-  bucket = "tf-my-l1-bucket"
+resource "google_storage_bucket" "sample_bucket" {
+  name     = "my-sample-bucket"
+  location = var.region
 
-  tags = {
-    Name = "L1 Bucket"
+  versioning {
+    enabled = true
   }
+
+  lifecycle_rule {
+    action {
+      type = "Delete"
+    }
+
+    condition {
+      age = 30
+    }
+  }
+
+  uniform_bucket_level_access = true
+
+  depends_on = [google_project_service.storage]
 }
-# resource "aws_s3_bucket" "l2_bucket" {
-#   bucket = "tf-my-l2-bucket"
 
-#   versioning {
-#     enabled = true
-#   }
-
-#   tags = {
-#     Name = "L2 Bucket"
-#   }
-# }
-
-# resource "aws_s3_bucket_public_access_block" "l2_bucket_public_access_block" {
-#   bucket = aws_s3_bucket.l2_bucket.id
-
-#   block_public_acls   = true
-#   block_public_policy = true
-#   ignore_public_acls  = true
-#   restrict_public_buckets = true
-# }
+resource "google_project_service" "storage" {
+  service = "storage.googleapis.com"
+}
